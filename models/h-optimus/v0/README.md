@@ -2,7 +2,7 @@
 <img src="./logo.png" width="500" height="180" />
 </p>
 
-# H-optimus-V0
+# H-optimus-0
 An open-source foundation model for histology.
 
 ## Dataset and model training.
@@ -21,9 +21,9 @@ We performed our training on pods of 8 x A100 GPUs with 80Gb of memory.
 
 ## Feature extraction.
 
-The `H-optimus-V0` model checkpoint can be downloaded [here](https://public-bioptimus-eu-west-3.s3.eu-west-3.amazonaws.com/h-optimus-v0/checkpoint.pth).
+The `H-optimus-0` model checkpoint can be downloaded [here](https://public-bioptimus-eu-west-3.s3.eu-west-3.amazonaws.com/h-optimus-v0/checkpoint.pth).
 
-The code below can be used to run inference; `H-optimus-V0` expects images of size 224x224, extracted at 0.5 microns per pixel.
+The code below can be used to run inference; `H-optimus-0` expects images of size 224x224, extracted at 0.5 microns per pixel.
 ```python
 import functools
 
@@ -214,9 +214,9 @@ Our code and model weights are released under the Apache License 2.0. See [LICEN
 
 If you find this repository useful, please consider giving a star ⭐ and citation:
 ```
-@software{hoptimusv0,
+@software{hoptimus0,
   author = {Saillard, Charlie and Jenatton, Rodolphe and Llinares-López, Felipe and Mariet, Zelda and Cahané, David and Durand, Eric and Vert, Jean-Philippe},
-  title = {H-optimus-V0},
+  title = {H-optimus-0},
   url = {https://github.com/bioptimus/releases/tree/main/models/h-optimus/v0},
   year = {2024},
 }
