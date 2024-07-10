@@ -14,8 +14,7 @@ Our dataset covers human tissues from various body regions, and has&mdash;to the
 We train a vision transformer [[Dosovitskiy et al., 2021](https://openreview.net/pdf?id=YicbFdNTTy)] using a self-supervised learning framework base on
 [[Zhou et al., 2023](https://openreview.net/pdf?id=ydopy-e6Dg), [Oquab et al., 2024](https://openreview.net/pdf?id=a68SUt6zFt)]. The model backbone is a `g/14` architecture with 4 registers [[Darcet et al., 2024](https://arxiv.org/pdf/2309.16588)].
 
-Specifically, the model consists of 40 transformer blocks equipped with 24 heads in the attention layers; its embedding is of dimension of 1536. Alonside the the tile encoder from [[Xu et al., 2024](https://www.nature.com/articles/s41586-024-07441-w)], 
-this is, to the best of our knowledge, the largest model backbone used in the context of computational pathology so far.
+Specifically, the model consists of 40 transformer blocks equipped with 24 heads in the attention layers; its embedding is of dimension of 1536. Alongside the tile encoder from [[Xu et al., 2024](https://www.nature.com/articles/s41586-024-07441-w)], this is, to the best of our knowledge, the largest model backbone used in the context of computational pathology so far.
 
 We performed our training on pods of 8 x A100 GPUs with 80Gb of memory.
 
@@ -82,7 +81,7 @@ We report experimental results on tile-level and slide-level tasks. A descriptio
 
 ### Tile-level evaluations.
 
-The tile-level evaluations correspond to binary and multi-class classification tasks wherein we need to identify tissue types or tissue characteristics on the tiles. The number of classes in those tasks vary from 2 to 32.
+The tile-level evaluations correspond to binary and multi-class classification tasks wherein we need to identify tissue types or tissue characteristics on the tiles. The number of classes in those tasks varies from 2 to 32.
 
 To perform those classification tasks, we learn a linear classifier on top of the tile representations. 
 In the table below, we report the mean accuracy (and the standard deviation) averaged over three trainings of the linear classifiers (where the randomness is due to the random splits of the cross validation and the batch of the stochastic gradient solver; see details in [Appendix](#hyperparameters)).
@@ -186,7 +185,7 @@ For each task, we train 10 ABMIL models [[Ilse et al., 2018](https://proceedings
 
 We select the number of training epochs in {1, 5, 10, 15, ..., 50} by 5-fold cross validation while minimizing the binary cross-entropy.
 
-For the sake of robustness, the above procedure is repeated 5 times with different PyTorch seeds. The values reported in the table are the average metrics of the 5*10 ABMIL models. The standard deviations reported in parenthesis are the average standard deviation over the 5 seeds.
+For the sake of robustness, the above procedure is repeated 5 times with different PyTorch seeds. The values reported in the table are the average metrics of the 5*10 ABMIL models. The standard deviations reported in parentheses are the average standard deviation over the 5 seeds.
 
 For the sake of speed, a random subset of 3,000 tiles per slide is selected during training. For inference, a subset of 8,000 tiles is randomly selected.
 
