@@ -20,60 +20,7 @@ We performed our training on pods of 8 x A100 GPUs with 80Gb of memory.
 
 ## Feature extraction.
 
-The `H-optimus-0` model checkpoint can be downloaded [here](https://public-bioptimus-eu-west-3.s3.eu-west-3.amazonaws.com/h-optimus-v0/checkpoint.pth).
-
-The code below can be used to run inference; `H-optimus-0` expects images of size 224x224, extracted at 0.5 microns per pixel.
-```python
-import functools
-
-import timm
-import torch
-from torchvision import transforms 
-
-
-PATH_TO_CHECKPOINT = ""  # Path to the downloaded checkpoint.
-
-params = {
-    'patch_size': 14, 
-    'embed_dim': 1536, 
-    'depth': 40, 
-    'num_heads': 24, 
-    'init_values': 1e-05, 
-    'mlp_ratio': 5.33334, 
-    'mlp_layer': functools.partial(
-        timm.layers.mlp.GluMlp, act_layer=torch.nn.modules.activation.SiLU, gate_last=False
-    ), 
-    'act_layer': torch.nn.modules.activation.SiLU, 
-    'reg_tokens': 4, 
-    'no_embed_class': True, 
-    'img_size': 224, 
-    'num_classes': 0, 
-    'in_chans': 3
-}
-
-model = timm.models.VisionTransformer(**params)
-model.load_state_dict(torch.load(PATH_TO_CHECKPOINT, map_location="cpu"))
-model.eval()
-model.to("cuda")
-
-transform = transforms.Compose([
-    transforms.ToTensor(),
-    transforms.Normalize(
-        mean=(0.707223, 0.578729, 0.703617), 
-        std=(0.211883, 0.230117, 0.177517)
-    ),
-])
-
-input = torch.rand(3, 224, 224)
-input = transforms.ToPILImage()(input)
-
-# We recommend using mixed precision for faster inference.
-with torch.autocast(device_type="cuda", dtype=torch.float16):
-    with torch.inference_mode():
-        features = model(transform(input).unsqueeze(0).to("cuda"))
-
-assert features.shape == (1, 1536)
-```
+The `H-optimus-0` model can be downloaded on Hugging Face's model hub [here](https://huggingface.co/bioptimus/H-optimus-0).
 
 ## Experiments and evaluations.
 
